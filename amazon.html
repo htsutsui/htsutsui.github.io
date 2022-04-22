@@ -12,16 +12,14 @@ $(function() {
     });
     $("button#submit").on("click", function() {
         $("#result").empty();
-        if(lines = $("textarea").val().match(/[^\r\n]+/g)){
-            lines.forEach(line => {
-                if(m = line.match(re)){
-                    url = m[1] + 'dp/' + m[2] + '/';
-                    $("#result").append(
-                        $('<li/>').html( $("<a/>", { href: url, text: url }) )
-                    );
-                }
-            });
-        }
+        $("textarea").val().split(/\r\n|\r|\n/).forEach(line => {
+            if(m = line.match(re)){
+                url = m[1] + 'dp/' + m[2] + '/';
+                $("#result").append(
+                    $('<li/>').html( $("<a/>", { href: url, text: url }) )
+                );
+            }
+        });
     });
 });
 </script>
@@ -34,10 +32,8 @@ $(function() {
 </style>
 </head>
 <body>
-<textarea id="text">
-</textarea>
-<p><button id="submit">Convert</button>
-<button id="clear">Clear</button>
+<textarea id="text"></textarea>
+<p><button id="submit">Convert</button><button id="clear">Clear</button></p>
 <ul id="result"></ul>
 </body>
 </html>
