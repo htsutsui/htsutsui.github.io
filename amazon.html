@@ -1,27 +1,30 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Amazon URL Shortner</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-$(function() {
-    re = RegExp(/(https:\/\/www\.amazon\.co\.jp\/)(?:.*?\/){0,1}(?:dp|gp\/product)\/([0-9A-Z]{10})/, '');
-    $("button#clear").on("click", function() {
-        $("textarea").val('');
-        $("#result").empty();
-    });
-    $("button#submit").on("click", function() {
-        $("#result").empty();
-        $("textarea").val().split(/\r\n|\r|\n/).forEach(line => {
-            if(m = line.match(re)){
-                url = m[1] + 'dp/' + m[2] + '/';
-                $("#result").append(
-                    $('<li/>').html( $("<a/>", { href: url, text: url }) )
-                );
-            }
-        });
-    });
-});
+$(function () {
+  const re = /(https:\/\/www\.amazon\.co\.jp\/)(?:.*?\/){0,1}(?:dp|gp\/product)\/([0-9A-Z]{10})/
+  $('button#clear').on('click', function () {
+    $('textarea').val('')
+    $('#result').empty()
+  })
+  $('button#submit').on('click', function () {
+    $('#result').empty()
+    $('textarea').val().split(/\r\n|\r|\n/).forEach(line => {
+      const m = line.match(re)
+      if (m) {
+        const url = m[1] + 'dp/' + m[2] + '/'
+        $('#result').append(
+          $('<li/>').html($('<a/>', { href: url, text: url }))
+        )
+      }
+    })
+  })
+})
 </script>
 <style>
 #text
